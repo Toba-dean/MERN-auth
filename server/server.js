@@ -3,12 +3,14 @@ require('express-async-errors');
 
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 
 const connectDB = require('./db/connect');
+const ErrorHandlerMiddleware = require('./middleware/error-handling');
+const NotFoundMiddleware = require('./middleware/route-not-found');
 const userRoute = require("./routes/userRoutes");
 
 app.use(cors());
@@ -19,7 +21,10 @@ app.use(fileUpload({
 }));
 
 
-app.use('/api/v1/user', userRoute)
+app.use('/api/v1', userRoute)
+
+app.use(NotFoundMiddleware);
+app.use(ErrorHandlerMiddleware);
 
 
 const start = async () => {
