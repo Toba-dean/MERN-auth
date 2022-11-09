@@ -72,13 +72,35 @@ const userCtrl = {
 
     const { _id: userId } = user;
     const refresh_token = createRefreshToken({ userId });
+
+    // Set the refresh token as a cookie value
     res.cookie('refreshtoken', refresh_token, {
       httpOnly: true,
-      path: '/api/user/refresh_token',
+      path: '/api/v1/access',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    })
+    });
 
     res.status(200).json({ msg: "Login successful", refresh_token })
+  },
+  getAccessToken: async (req, res) => {
+    // get refresh token from req
+    const rf_token = req.cookies.refreshtoken;
+
+    // check for refresh token
+    if (!rf_token) {
+      throw new UnauthenticatedError("Please Login now.")
+    }
+
+    // verify the refresh token
+    jwt.verify(rf_token, process.env.REFRESH_SECRET_KEY, (err, user) => {
+      if (err) {
+        throw new UnauthenticatedError("Please Login now.")
+      }
+
+      const { userId } = user
+      const access_token = createAccessToken({ userId })
+      res.json({ access_token })
+    })
   }
 }
 
