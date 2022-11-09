@@ -101,7 +101,34 @@ const userCtrl = {
       const access_token = createAccessToken({ userId })
       res.json({ access_token })
     })
-  }
+  },
+  forgotPassword: async (req, res) => {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new NotFoundError("No user with that email.")
+    }
+
+    const access_token = createAccessToken({ userId: user._id })
+    const url = `${CLIENT_URL}/api/v1/reset/${access_token}`
+
+    sendMail(email, url, "Reset your password");
+    res.status(StatusCodes.OK).json({ msg: "Reset your password, please check your email.", access_token })
+  },
+  resetPassword: async (req, res) => {
+    const { password } = req.body;
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(password, salt);
+
+    const { userId } = req.user
+    await User.findOneAndUpdate({ userId }, { password: hashPassword });
+
+    res.status(StatusCodes.OK).json({ msg: "Password successfully changed!" })
+  },
+  logOut: async (req, res) => {
+    res.clearCookie('refreshtoken', { path: '/api/v1/access' });
+    return res.json({ msg: "Logged out." })
+  },
 }
 
 
