@@ -37,6 +37,7 @@ const userCtrl = {
     sendMail(email, url, "Verify your email address");
 
     res.status(StatusCodes.OK).json({ msg: 'Successfully registered, Please activate email to start.', activationToken })
+
   },
   activateUser: async (req, res) => {
     const { activation_token } = req.body;
@@ -53,8 +54,31 @@ const userCtrl = {
     return res.status(StatusCodes.OK).json({ msg: 'Account Activated', newUser })
 
   },
-  getUser: async (req, res) => { 
-    res.status(200).json({ success: true, msg: "Getting user from the controller." })
+  getUser: async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      throw new BadRequestError('All fields must be filled.');
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new NotFoundError("No user with that email.")
+    }
+
+    const isCorrectPassword = await bcrypt.compare(password, user.password);
+    if (!isCorrectPassword) {
+      throw new UnauthenticatedError('Incorrect password entered.');
+    }
+
+    const { _id: userId } = user;
+    const refresh_token = createRefreshToken({ userId });
+    res.cookie('refreshtoken', refresh_token, {
+      httpOnly: true,
+      path: '/api/user/refresh_token',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    })
+
+    res.status(200).json({ msg: "Login successful", refresh_token })
   }
 }
 
