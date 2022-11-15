@@ -11,6 +11,7 @@ const fileUpload = require('express-fileupload');
 const connectDB = require('./db/connect');
 const ErrorHandlerMiddleware = require('./middleware/error-handling');
 const NotFoundMiddleware = require('./middleware/route-not-found');
+const authRoute = require("./routes/authRoutes");
 const userRoute = require("./routes/userRoutes");
 
 app.use(cors());
@@ -21,11 +22,12 @@ app.use(fileUpload({
 }));
 
 
-app.use('/api/v1', userRoute)
+app.use('/api/v1/auth', authRoute);
+app.use('/api/v1/user', userRoute);
 
 app.use(NotFoundMiddleware);
 app.use(ErrorHandlerMiddleware);
-
+ 
 
 const start = async () => {
   try {
