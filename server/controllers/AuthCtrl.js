@@ -51,7 +51,7 @@ const authCtrl = {
 
     const newUser = await User.create({ name, email, password });
 
-    return res.status(StatusCodes.OK).json({ msg: 'Account Activated', newUser })
+    return res.status(StatusCodes.CREATED).json({ msg: 'Account Activated', newUser })
 
   },
   login: async (req, res) => {
