@@ -13,6 +13,7 @@ const ErrorHandlerMiddleware = require('./middleware/error-handling');
 const NotFoundMiddleware = require('./middleware/route-not-found');
 const authRoute = require("./routes/authRoutes");
 const userRoute = require("./routes/userRoutes");
+const uploadRoute = require("./routes/uploadRoute");
 
 app.use(cors());
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use(fileUpload({
 
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/user', userRoute);
+app.use('/api/v1/upload', uploadRoute);
 
 app.use(NotFoundMiddleware);
 app.use(ErrorHandlerMiddleware);
