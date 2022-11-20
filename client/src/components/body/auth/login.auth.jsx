@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 import { ShowErrorMsg, ShowSuccessMsg } from '../../../utils/notification/notification';
+import { dispatchLogin } from '../../../redux/user/user.action';
 
 
 const initialstate = {
@@ -17,13 +19,16 @@ const Login = () => {
   const [user, setUser] = useState(initialstate);
   const { email, password, err, success } = user;
 
+  const dispatch = useDispatch()
+  const nav = useNavigate();
+
   const handleChange = e => {
     const { name, value } = e.target
-    setUser({ 
-      ...user, 
-      [name]: value, 
-      err: '', 
-      success: '' 
+    setUser({
+      ...user,
+      [name]: value,
+      err: '',
+      success: ''
     })
   }
 
@@ -42,6 +47,9 @@ const Login = () => {
       })
 
       localStorage.setItem('firstLogin', true)
+
+      dispatch(dispatchLogin())
+      nav('/')
     } catch (error) {
       error.response.data.msg && setUser({
         ...user,
