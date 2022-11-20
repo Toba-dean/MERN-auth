@@ -98,6 +98,8 @@ const Login = () => {
           <Link to='/forget'>Forget password?</Link>
         </div>
       </form>
+
+      <p>Don't have an account? <Link to='/signup'>Register Now.</Link></p>
     </div>
   )
 }
