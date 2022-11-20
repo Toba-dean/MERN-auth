@@ -17,7 +17,7 @@ const userCtrl = {
   getSingleUser: async (req, res) => {
     const { userId } = req.user;
     const user = await User.findOne({ _id: userId }).select('-password')
-    res.status(StatusCodes.OK).json({ user })
+    res.status(StatusCodes.OK).json(user)
   },
   updateUser: async (req, res) => {
     const { name, avatar, password } = req.body

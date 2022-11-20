@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 
 import UserReducer from "./user/user.reducer";
+import TokenReducer from "./token/token.reducer";
 
 export default combineReducers({
-  user: UserReducer
+  users: UserReducer,
+  token: TokenReducer
 })
