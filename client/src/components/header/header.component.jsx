@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
 
@@ -27,6 +29,7 @@ const Header = () => {
       <li className="drop-nav">
         <Link to='/'>
           <img src={user.avatar} alt="" />{user.name}
+          <FontAwesomeIcon icon={faAngleDown} style={{ marginLeft: 5 }} />
         </Link>
 
         <ul className="dropdown">

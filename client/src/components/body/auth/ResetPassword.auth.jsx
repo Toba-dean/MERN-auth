@@ -73,7 +73,7 @@ const ResetPassword = () => {
         {err && ShowErrorMsg(err)}
         {success && ShowSuccessMsg(success)}
 
-        <label htmlFor="password">Enter Nre Password</label>
+        <label htmlFor="password">Enter New Password</label>
         <input
           type="password"
           name="password"
@@ -82,7 +82,7 @@ const ResetPassword = () => {
           onChange={handleChange}
         />
 
-        <label htmlFor="cf_password">Confirm Password</label>
+        <label htmlFor="cf_password">Confirm New Password</label>
         <input
           type="password"
           name="cf_password"

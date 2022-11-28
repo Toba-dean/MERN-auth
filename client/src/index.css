@@ -17,7 +17,7 @@ code {
 .App {
   max-width: 1240px;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   margin: auto;
   box-shadow: 0 0 20px #eee;
   overflow: hidden;
@@ -42,3 +42,6 @@ button {
 
 /* -------------Auth Style--------------  */
 @import url("./components/body/auth/auth.css");
+
+/* -------------Profile Style--------------  */
+@import url("./components/body/profile/profile.css");
