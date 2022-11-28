@@ -121,7 +121,7 @@ const authCtrl = {
     const hashPassword = await bcrypt.hash(password, salt);
 
     const { userId } = req.user
-    await User.findOneAndUpdate({ userId }, { password: hashPassword });
+    await User.findOneAndUpdate({ _id: userId }, { password: hashPassword });
 
     res.status(StatusCodes.OK).json({ msg: "Password successfully changed!" })
   },

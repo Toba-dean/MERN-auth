@@ -21,21 +21,21 @@
   outline: none;
 }
 
-.row {
+.login .row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.row a {
-  color: crimson;
+.login .row a {
+  color: crimson !important;
 }
 
-.row a:hover {
-  color: red;
+.login .row a:hover {
+  color: red !important;
 }
 
-.row button {
+.login .row button {
   width: 150px;
   padding: 10px 0;
   color:white;
@@ -49,4 +49,40 @@
 .login a {
   font-weight: 500;
   color: #111;
+}
+
+/* ------------Forget Pass-------------- */
+.fg_pass h2 {
+  color: #555;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2rem;
+  margin: 50px 0;
+  letter-spacing: 1.3px;
+}
+
+.fg_pass .row {
+  max-width: 550px;
+  margin: auto;
+  padding: 0 10px;
+}
+
+.fg_pass .row input {
+  width: 100%;
+  height: 45px;
+  border: 1px solid #ccc;
+  outline: none;
+  padding: 0 15px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.fg_pass .row button {
+  padding: 10px 30px;
+  color: white;
+  background-color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1.3px; 
+  border-radius: 4px;
+  margin-top: 15px;
 }

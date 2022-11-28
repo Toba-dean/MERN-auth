@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import axios from "axios";
+import axios from "axios";
 
 const Header = () => {
 
@@ -11,7 +11,18 @@ const Header = () => {
     transform: isLoggedIn ? 'translateY(-5px)' : 0
   }
 
+  const handleLogout = async () => {
+    try {
+      await axios('api/v1/auth/logout')
+      localStorage.removeItem('firstLogin')
+      window.location.href = '/'
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   const userLink = () => {
+
     return (
       <li className="drop-nav">
         <Link to='/'>
@@ -20,7 +31,7 @@ const Header = () => {
 
         <ul className="dropdown">
           <li><Link to='/profile'>Profile</Link></li>
-          <li><Link to='/logout'>Log Out</Link></li>
+          <li><Link to='/' onClick={handleLogout}>Log Out</Link></li>
         </ul>
       </li>
     )
