@@ -20,15 +20,14 @@ const userCtrl = {
     res.status(StatusCodes.OK).json(user)
   },
   updateUser: async (req, res) => {
-    const { name, avatar, password } = req.body
+    const { name, avatar } = req.body
     const { userId } = req.user
 
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(password, salt);
-
-    const updatedUser = await User.findOneAndUpdate({ _id: userId }, {
-      name, avatar, password: hashPassword
-    }, { new: true, runValidators: true })
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { name, avatar },
+      { new: true, runValidators: true }
+    )
     res.status(StatusCodes.OK).json({ msg: "Update Successful.", updatedUser })
   },
   updateRole: async (req, res) => {

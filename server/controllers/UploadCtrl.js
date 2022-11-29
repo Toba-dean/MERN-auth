@@ -13,7 +13,7 @@ const uploadCtrl = {
     const file = req.files.file;
 
     cloudinary.v2.uploader.upload(file.tempFilePath, {
-      folder: 'avatar/full_auth', width: 150, height: 150, crop: "fill"
+      folder: 'avatar', width: 150, height: 150, crop: "fill"
     }, async (err, result) => {
       if (err) throw err;
 

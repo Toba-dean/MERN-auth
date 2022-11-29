@@ -4,7 +4,7 @@ const UploadMiddleware = async function (req, res, next) {
   try {
     // Check if the req has a file
     if (!req.files || Object.keys(req.files).length === 0) {
-      return res.status(400).json({ msg: "No files were uploaded." })
+      return res.status(400).json({ msg: "No files was uploaded." })
     }
 
     const file = req.files.file;
